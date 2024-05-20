@@ -1,0 +1,31 @@
+import clsx from 'clsx';
+import React from 'react';
+
+interface Props {
+  id: string;
+  label: string;
+  type: React.HTMLInputTypeAttribute,
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+}
+
+export const InputGroup = ({ id, label, type, value, onChange, required }: Props) => {
+    return (
+      <div className="mb-5">
+        <label htmlFor={id} className="block mb-2 text-sm font-medium text-gray-900">{label}</label>
+        <input
+          required={required}
+          type={type}
+          id={id}
+          name={id}
+          className={
+            clsx("bg-gray-50 border text-gray-900 text-sm rounded-lg",
+             "focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5",
+             (!!required ? "border-red-500" : "border-gray-300"))}
+          value={value}
+          onChange={(e) => onChange(e)}
+        />
+    </div>
+    );
+}
