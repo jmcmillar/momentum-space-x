@@ -1,7 +1,6 @@
 
 import { InputGroup } from './InputGroup';
 import useForm from '../../hooks/useForm';
-import React from 'react';
 
 export function LaunchForm() {
   const { formData, handleChange, handleSubmit } = useForm();
