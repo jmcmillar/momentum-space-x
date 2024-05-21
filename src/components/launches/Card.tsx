@@ -4,7 +4,7 @@ import { Launch } from '../../types/Launch';
 
 const Card = ({details, mission_name, id, rocket }: Launch ) => {
   return (
-    <div className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl">
+    <div className="relative flex flex-col justify-between mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl">
       <div className="p-6">
         <div className="flex items-center justify-between">
           <h2 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">

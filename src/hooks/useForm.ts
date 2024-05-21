@@ -4,7 +4,6 @@ import { Launch } from '../types/Launch';
 
 export interface FormProps {
   missionName: string;
-  launchYear: string;
   launchDate: string;
   rocketName: string;
   links: string;
@@ -15,7 +14,6 @@ export interface FormProps {
 const useForm = () => {
   const empty_form_data = {
     missionName: '',
-    launchYear: '',
     launchDate: '',
     rocketName: '',
     links: '',
@@ -38,7 +36,7 @@ const useForm = () => {
   };
 
   const formErrors = (formData: FormProps) => {
-    const errors = { missionName: false, launchDate: false }
+    const errors = { missionName: false, launchDate: false}
 
     if (formData.missionName === '') {
       errors.missionName = true;

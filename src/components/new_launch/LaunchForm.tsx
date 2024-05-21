@@ -16,13 +16,6 @@ export function LaunchForm() {
         displayError={errors.missionName}
       />
       <InputGroup
-        id="launchYear"
-        label="Launch Year"
-        type="number"
-        value={formData.launchYear}
-        onChange={handleChange}
-      />
-      <InputGroup
         id="rocketName"
         label="Rocket Name"
         type="text"

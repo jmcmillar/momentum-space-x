@@ -30,7 +30,7 @@ const usePaginatedLaunches = (pageSize: number): ApiResponseWithLoadingError => 
         } catch (error) {
           setError(error);
         } finally {
-          setTimeout(() => setLoading(false), 1000);
+          setTimeout(() => setLoading(false), 1000); // enhanced loading state for visual effect
         }
       };
 
@@ -38,7 +38,7 @@ const usePaginatedLaunches = (pageSize: number): ApiResponseWithLoadingError => 
       if (storedLaunches) {
         const parsedLaunches: Launch[] = JSON.parse(storedLaunches);
         setLaunches(parsedLaunches);
-        setTimeout(() => setLoading(false), 1000);
+        setTimeout(() => setLoading(false), 1000); // enhanced loading state for visual effect
       } else {
         fetchData();
       }

@@ -3,7 +3,6 @@ import { FormProps } from '../../hooks/useForm';
 
 const mockFormData: FormProps = {
   missionName: 'Test Mission',
-  launchYear: '2024',
   launchDate: '2024-05-19T00:00:00.000Z',
   details: 'This is a test mission',
   rocketName: 'Test Rocket',

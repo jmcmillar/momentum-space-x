@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Launch } from '../types/Launch';
 import { Loader } from '../components/Loader';
 import { TitleBar } from '../components/TitleBar';
+import { format, parseISO } from 'date-fns';
 
 export function LaunchDetailPage() {
   const { id } = useParams();
@@ -28,11 +29,13 @@ export function LaunchDetailPage() {
     return <Loader />;
   }
 
+  const launchDate = format(parseISO(launchDetails.launch_date_utc), 'eeee, MMM do yyyy')
+
   return (
     <div className='mx-6'>
       <TitleBar title={launchDetails.mission_name} />
       <div className="my-8">
-        <p className="mb-4">Launched: {launchDetails.launch_date_utc}</p>
+        <p className="mb-4">Launched: {launchDate}</p>
         <p className="mb-4">Rocket: {launchDetails.rocket?.rocket_name}</p>
         <p className="mb-4">Details: {launchDetails.details}</p>
         {launchDetails.links?.article_link &&
