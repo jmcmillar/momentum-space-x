@@ -8,7 +8,6 @@ interface Props {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   displayError?: boolean;
-  
 }
 
 export const InputGroup = ({ id, label, type, value, onChange, displayError}: Props) => {

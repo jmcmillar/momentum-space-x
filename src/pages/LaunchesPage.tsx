@@ -8,7 +8,7 @@ export function LaunchesPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 6;
 
-    const { data, loading, error, getPaginationData } = usePaginatedLaunches(pageSize);
+    const { data, loading, error, paginationData } = usePaginatedLaunches(pageSize, currentPage);
 
     if (loading) {
       return <Loader />;
@@ -22,7 +22,6 @@ export function LaunchesPage() {
       return <div>No launches available.</div>;
     }
 
-    const paginationData = getPaginationData(currentPage);
     return (
       <div className="mx-6">
         <TitleBar title="Launches" />
