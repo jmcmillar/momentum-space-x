@@ -4,6 +4,7 @@ import { Pagination, Card } from '../components/launches';
 import { Loader } from '../components/Loader';
 import { TitleBar } from '../components/TitleBar';
 
+
 export function LaunchesPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 6;
