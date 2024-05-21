@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Launch } from '../types/Launch';
 import { Loader } from '../components/Loader';
+import { TitleBar } from '../components/TitleBar';
 
 export function LaunchDetailPage() {
   const { id } = useParams();
@@ -28,7 +29,8 @@ export function LaunchDetailPage() {
   }
 
   return (
-    <div>
+    <div className='mx-6'>
+      <TitleBar title={launchDetails.mission_name} />
       <div className="my-8">
         <p className="mb-4">Launched: {launchDetails.launch_date_utc}</p>
         <p className="mb-4">Rocket: {launchDetails.rocket?.rocket_name}</p>

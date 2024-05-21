@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import usePaginatedLaunches from '../hooks/usePaginationLaunches';
 import { Pagination, Card } from '../components/launches';
 import { Loader } from '../components/Loader';
+import { TitleBar } from '../components/TitleBar';
 
 export function LaunchesPage() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -23,8 +24,8 @@ export function LaunchesPage() {
 
     const paginationData = getPaginationData(currentPage);
     return (
-      <div>
-        <h1> Launches</h1>
+      <div className="mx-6">
+        <TitleBar title="Launches" />
         <div className="lg:grid lg:grid-cols-3 gap-4 mb-12">
           {paginationData.launches.map((launch) => (
               <Card {...launch} key={launch.id}/>

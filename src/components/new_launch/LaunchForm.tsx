@@ -3,17 +3,17 @@ import { InputGroup } from './InputGroup';
 import useForm from '../../hooks/useForm';
 
 export function LaunchForm() {
-  const { formData, handleChange, handleSubmit } = useForm();
+  const { formData, errors, handleChange, handleSubmit } = useForm();
 
   return (
     <form onSubmit={handleSubmit}>
       <InputGroup
-        required={true}
         id="missionName"
         label="Mission Name"
         type="text"
         value={formData.missionName}
         onChange={handleChange}
+        displayError={errors.missionName}
       />
       <InputGroup
         id="launchYear"
@@ -51,6 +51,7 @@ export function LaunchForm() {
         type="datetime-local"
         value={formData.launchDate}
         onChange={handleChange}
+        displayError={errors.launchDate}
       />
       <button
         type="submit"

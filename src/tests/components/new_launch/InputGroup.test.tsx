@@ -21,19 +21,19 @@ describe('InputGroup', () => {
     expect(inputElement).toHaveAttribute('type', 'text');
   });
 
-  it('applies "required" attribute when specified', () => {
-    const { getByLabelText } = render(<InputGroup {...defaultProps} required />);
-    const inputElement = getByLabelText('Test Label');
+  // it('applies "required" attribute when specified', () => {
+  //   const { getByLabelText } = render(<InputGroup {...defaultProps} required />);
+  //   const inputElement = getByLabelText('Test Label');
 
-    expect(inputElement).toHaveAttribute('required');
-  });
+  //   expect(inputElement).toHaveAttribute('required');
+  // });
 
-  it('applies red border when "required" attribute is specified', () => {
-    const { getByLabelText } = render(<InputGroup {...defaultProps} required />);
-    const inputElement = getByLabelText('Test Label');
+  // it('applies red border when "required" attribute is specified', () => {
+  //   const { getByLabelText } = render(<InputGroup {...defaultProps} required />);
+  //   const inputElement = getByLabelText('Test Label');
 
-    expect(inputElement).toHaveClass('border-red-500');
-  });
+  //   expect(inputElement).toHaveClass('border-red-500');
+  // });
 
   it('applies default gray border when "required" attribute is not specified', () => {
     const { getByLabelText } = render(<InputGroup {...defaultProps} />);

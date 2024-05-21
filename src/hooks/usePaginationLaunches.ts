@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Launch, LaunchIndexJson } from '../types';
+import { ROUTES } from '../constants';
 
 type ApiResponseWithLoadingError = {
     data: Launch[] | null;
@@ -23,15 +24,13 @@ const usePaginatedLaunches = (pageSize: number): ApiResponseWithLoadingError => 
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get<LaunchIndexJson>(
-            'https://file.notion.so/f/f/dea6dd0b-0b4b-4fcd-b3b6-09d0e299a1cd/552f1b7e-336e-4a46-9b27-e700fae6f4b9/Payload.json?id=fd5dcb34-2f5a-4942-bd6a-ea1bf723da54&table=block&spaceId=dea6dd0b-0b4b-4fcd-b3b6-09d0e299a1cd&expirationTimestamp=1716177600000&signature=RR8mZdgYwohtya06IQ00REuCdChnyeKnmLHAEkDTPb4&downloadName=Payload.json',
-          );
+          const response = await axios.get<LaunchIndexJson>(ROUTES.api);
           localStorage.setItem('data', JSON.stringify(response.data.data.launches));
           setLaunches(response.data.data.launches);
         } catch (error) {
           setError(error);
         } finally {
-          setLoading(false);
+          setTimeout(() => setLoading(false), 1000);
         }
       };
 
@@ -39,7 +38,7 @@ const usePaginatedLaunches = (pageSize: number): ApiResponseWithLoadingError => 
       if (storedLaunches) {
         const parsedLaunches: Launch[] = JSON.parse(storedLaunches);
         setLaunches(parsedLaunches);
-        setLoading(false);
+        setTimeout(() => setLoading(false), 1000);
       } else {
         fetchData();
       }
