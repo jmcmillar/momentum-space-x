@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Launch } from '../types/Launch';
+import { Loader } from '../components/Loader';
 
 export function LaunchDetailPage() {
   const { id } = useParams();
@@ -23,7 +24,7 @@ export function LaunchDetailPage() {
   }, [id]);
 
   if (!launchDetails) {
-    return <div>Loading..</div>
+    return <Loader />;
   }
 
   return (

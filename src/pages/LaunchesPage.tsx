@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import usePaginatedLaunches from '../hooks/usePaginationLaunches';
 import { Pagination, Card } from '../components/launches';
+import { Loader } from '../components/Loader';
 
 export function LaunchesPage() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -9,7 +10,7 @@ export function LaunchesPage() {
     const { data, loading, error, getPaginationData } = usePaginatedLaunches(pageSize);
 
     if (loading) {
-      return <p></p>;
+      return <Loader />;
     }
 
     if (error) {
