@@ -1,14 +1,14 @@
 import { format } from "date-fns";
 import { FormProps } from "../hooks/useForm";
 import { Launch } from "../types/Launch";
+import { v4 as uuidv4 } from 'uuid';
 
 export const transformLaunchFormData = ({missionName, launchDate, details, rocketName, links}: FormProps) => {
-  const formattedlaunchDate = new Date(launchDate);
-  const isoLaunchDate = formattedlaunchDate.toISOString();
-  const launchYear = format(formattedlaunchDate, 'yyyy');
+  const isoLaunchDate = (new Date(launchDate)).toISOString();
+  const launchYear = format(isoLaunchDate, 'yyyy');
 
   const transformedData: Launch = {
-    id: Math.random().toString(),
+    id: uuidv4(),
     mission_name: missionName,
     launch_year: launchYear,
     launch_date_utc: isoLaunchDate,

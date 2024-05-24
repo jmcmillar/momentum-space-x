@@ -1,40 +1,40 @@
-import React, { useState } from 'react';
-import usePaginatedLaunches from '../hooks/usePaginationLaunches';
+import React, { useEffect, useState } from 'react';
 import { Pagination, Card } from '../components/launches';
 import { Loader } from '../components/Loader';
 import { TitleBar } from '../components/TitleBar';
+import { LaunchDataStore } from '../store/data_store';
+import { Launch } from '../types';
 
 
 export function LaunchesPage() {
+    const [launches, setLaunches] = useState<Launch[] | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 6;
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
 
-    const { data, loading, error, paginationData } = usePaginatedLaunches(pageSize, currentPage);
+    useEffect(() => {
+      const store = new LaunchDataStore();
+        setLaunches(store.getPaginatedLaunches(pageSize, currentPage));
+    }, [currentPage]);
 
-    if (loading) {
+
+    if (!launches) {
       return <Loader />;
-    }
-
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    }
-
-    if (!data) {
-      return <div>No launches available.</div>;
     }
 
     return (
       <div className="mx-6">
         <TitleBar title="Launches" />
         <div className="lg:grid lg:grid-cols-3 gap-4 mb-12">
-          {paginationData.launches.map((launch) => (
+          {launches.map((launch) => (
               <Card {...launch} key={launch.id}/>
           ))}
         </div>
         <Pagination
-          start={paginationData.startIndex + 1} 
-          end={paginationData.endIndex}
-          total={data.length}
+          start={startIndex + 1} 
+          end={endIndex}
+          total={launches.length}
           onNext={() => setCurrentPage((currentPage + 1))}
           onPrev={() => setCurrentPage((currentPage - 1))}
         />

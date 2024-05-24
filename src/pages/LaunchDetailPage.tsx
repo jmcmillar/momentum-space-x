@@ -3,26 +3,16 @@ import { useParams } from 'react-router-dom';
 import { Launch } from '../types/Launch';
 import { Loader } from '../components/Loader';
 import { TitleBar } from '../components/TitleBar';
-import { format, parseISO } from 'date-fns';
+import { format, parseISO} from 'date-fns';
+import { LaunchDataStore } from '../store/data_store';
 
 export function LaunchDetailPage() {
   const { id } = useParams();
   const [launchDetails, setLaunchDetails] = useState<Launch>();
-
+  
   useEffect(() => {
-    const data = localStorage.getItem('data');
-    
-    if (data) {
-      try {
-        const launches: Launch[] = JSON.parse(data);
-
-        const launch = launches.find(launch => launch.id === id);
-
-        setLaunchDetails(launch);
-      } catch (error) {
-        console.error("Error parsing data from local storage", error);
-      }
-    }
+    const store = new LaunchDataStore();
+    setLaunchDetails(store.getLaunch(id));
   }, [id]);
 
   if (!launchDetails) {
