@@ -9,10 +9,10 @@ import { LaunchDataStore } from '../store/data_store';
 export function LaunchDetailPage() {
   const { id } = useParams();
   const [launchDetails, setLaunchDetails] = useState<Launch>();
-  
+
   useEffect(() => {
     const store = new LaunchDataStore();
-    setLaunchDetails(store.getLaunch(id));
+    setLaunchDetails(store.getLaunch(String(id)));
   }, [id]);
 
   if (!launchDetails) {

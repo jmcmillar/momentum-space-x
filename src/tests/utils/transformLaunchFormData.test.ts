@@ -1,5 +1,5 @@
 import { transformLaunchFormData } from '../../utils/transformLaunchFormData'
-import { FormProps } from '../../hooks/useForm';
+import { FormProps } from '../../components/new_launch/LaunchForm'
 
 const mockFormData: FormProps = {
   missionName: 'Test Mission',

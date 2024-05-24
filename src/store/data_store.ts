@@ -1,26 +1,35 @@
 import axios from "axios";
 import { Launch, LaunchIndexJson } from "../types";
 import { ROUTES } from "../constants";
+import { FormProps } from "../components/new_launch/LaunchForm";
+import { transformLaunchFormData } from "../utils/transformLaunchFormData";
 
 export class LaunchDataStore {
-  private launches: Launch[] = [];
-  public loading: boolean = false;
+  public launches: Launch[] = [];
+  public launchCount: number = 0;
+
 
   constructor() {
-    this.fetchLaunches();
-    this.launches = JSON.parse(localStorage.getItem('data') || '[]');
+    this.getLaunches();
+    this.launchCount = this.launches.length;
   }
 
-  public async fetchLaunches(): Promise<void> {
-    if (!!localStorage.getItem('data')) return;
+  private setLaunches(launches: Launch[]): void {
+    this.launches = launches;
+    this.launchCount = launches.length;
+  }
+
+  public async getLaunches(): Promise<void> {
+    if (!!localStorage.getItem('data')) {
+      return this.setLaunches(JSON.parse(localStorage.getItem('data') || ''));
+    }
+
     try {
-      this.loading = true;
       const response = await axios.get<LaunchIndexJson>(ROUTES.api);
       localStorage.setItem('data', JSON.stringify(response.data.data.launches));
+      this.setLaunches(response.data.data.launches);
     } catch (error) {
       console.error(error);
-    } finally {
-      this.loading = false;
     }
   }
 
@@ -30,12 +39,11 @@ export class LaunchDataStore {
     return this.launches.slice(startIndex, endIndex)
   }
 
-  public getLaunch(id: string | undefined): Launch | undefined {
-    if (!id) return;
+  public getLaunch(id: string): Launch | undefined {
     return this.launches.find((launch) => launch.id === id);
   }
 
-  public prependLaunch(launch: Launch): void {
-    this.launches.unshift(launch);
+  public addLaunch(formData: FormProps): void {
+    this.launches.unshift(transformLaunchFormData(formData));
   }
 }

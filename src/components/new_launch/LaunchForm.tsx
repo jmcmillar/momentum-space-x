@@ -1,9 +1,31 @@
 
+import { LaunchDataStore } from '../../store/data_store';
 import { InputGroup } from './InputGroup';
-import useForm from '../../hooks/useForm';
+import { useState } from 'react';
+export interface FormProps {
+  missionName: string;
+  launchDate: string;
+  rocketName: string;
+  links: string;
+  details: string;
+}
 
 export function LaunchForm() {
-  const { formData, errors, handleChange, handleSubmit } = useForm();
+  const store = new LaunchDataStore();
+  const [formData, setFormData] = useState<FormProps>({} as FormProps);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    store.addLaunch(formData);
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -13,7 +35,6 @@ export function LaunchForm() {
         type="text"
         value={formData.missionName}
         onChange={handleChange}
-        displayError={errors.missionName}
       />
       <InputGroup
         id="rocketName"
@@ -44,7 +65,6 @@ export function LaunchForm() {
         type="datetime-local"
         value={formData.launchDate}
         onChange={handleChange}
-        displayError={errors.launchDate}
       />
       <button
         type="submit"

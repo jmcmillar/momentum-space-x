@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { FormProps } from "../hooks/useForm";
+import { FormProps } from "../components/new_launch/LaunchForm";
 import { Launch } from "../types/Launch";
 import { v4 as uuidv4 } from 'uuid';
 
