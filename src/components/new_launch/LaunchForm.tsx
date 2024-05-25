@@ -1,5 +1,6 @@
 
 import { LaunchDataStore } from '../../store/data_store';
+import { Errors, formValidator } from '../../utils/formValidator';
 import { InputGroup } from './InputGroup';
 import { useState } from 'react';
 export interface FormProps {
@@ -13,6 +14,7 @@ export interface FormProps {
 export function LaunchForm() {
   const store = new LaunchDataStore();
   const [formData, setFormData] = useState<FormProps>({} as FormProps);
+  const [errors, setErrors] = useState<Errors<FormProps>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -24,8 +26,14 @@ export function LaunchForm() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    store.addLaunch(formData);
+    setErrors(formValidator(formData, {missionName: "required", launchDate: "required", links: "isValidUrl"}))
+    if (isValid) {
+      store.addLaunch(formData);
+      return alert('success')
+    }
   }
+
+  const isValid: boolean = !!errors.launchDate || !!errors.missionName || !!errors.links
 
   return (
     <form onSubmit={handleSubmit}>
@@ -35,6 +43,7 @@ export function LaunchForm() {
         type="text"
         value={formData.missionName}
         onChange={handleChange}
+        errorMessage={errors.missionName}
       />
       <InputGroup
         id="rocketName"
@@ -49,6 +58,7 @@ export function LaunchForm() {
         type="text"
         value={formData.links}
         onChange={handleChange}
+        errorMessage={errors.links}
       />
       <label htmlFor="details" className="block mb-2 text-sm font-medium text-gray-900">Details</label>
       <textarea
@@ -65,6 +75,7 @@ export function LaunchForm() {
         type="datetime-local"
         value={formData.launchDate}
         onChange={handleChange}
+        errorMessage={errors.launchDate}
       />
       <button
         type="submit"

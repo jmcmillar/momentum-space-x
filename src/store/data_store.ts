@@ -44,6 +44,9 @@ export class LaunchDataStore {
   }
 
   public addLaunch(formData: FormProps): void {
-    this.launches.unshift(transformLaunchFormData(formData));
+    localStorage.setItem(
+      'data',
+      JSON.stringify([transformLaunchFormData(formData), ...this.launches])
+    )
   }
 }
