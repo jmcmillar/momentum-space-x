@@ -25,7 +25,7 @@ export const InputGroup = ({ id, label, type, value, onChange, errorMessage}: Pr
           value={value}
           onChange={(e) => onChange(e)}
         />
-        {errorMessage && <p className="text-red-500 text-sm mt-1">{label} is required to submit</p>}
+        {errorMessage && <p className="text-red-500 text-sm mt-1">{errorMessage}</p>}
     </div>
     );
 }

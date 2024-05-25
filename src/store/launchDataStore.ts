@@ -28,6 +28,7 @@ export class LaunchDataStore {
       const response = await axios.get<LaunchIndexJson>(ROUTES.api);
       localStorage.setItem('data', JSON.stringify(response.data.data.launches));
       this.setLaunches(response.data.data.launches);
+
     } catch (error) {
       console.error(error);
     }
@@ -48,5 +49,13 @@ export class LaunchDataStore {
       'data',
       JSON.stringify([transformLaunchFormData(formData), ...this.launches])
     )
+  }
+
+  public getUniqueRocketNames(): (string | undefined)[] {
+    return Array.from(new Set(this.launches.map(launch => launch?.rocket?.rocket_name)));
+  }
+
+  public filterByRocketName(rocketName: string): Launch[] {
+    return this.launches.filter(launch => launch?.rocket?.rocket_name === rocketName);
   }
 }

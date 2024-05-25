@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Launch } from '../../types/Launch';
+import { NameBadge } from '../NameBadge';
+import { setRocketNameBadgeProps } from '../../utils/setRocketNameBadgeProps';
 
 const Card = ({details, mission_name, id, rocket }: Launch ) => {
   return (
@@ -10,10 +12,10 @@ const Card = ({details, mission_name, id, rocket }: Launch ) => {
           <h2 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
           {mission_name}
           </h2>
-          <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{rocket?.rocket_name}</span>
+          <NameBadge {...setRocketNameBadgeProps(rocket.rocket_name)} />
         </div>
         <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
-          {details}
+          {details} 
         </p>
       </div>
       <div className="p-6 pt-0">

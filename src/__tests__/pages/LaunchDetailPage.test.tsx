@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { LaunchDetailPage } from '../../pages/LaunchDetailPage';
@@ -6,7 +7,7 @@ import { Launch } from '../../types';
 import { cleanup } from '@testing-library/react';
 
 
-jest.mock('axios');
+jest.mock('axios', () => {});
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),

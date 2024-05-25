@@ -1,7 +1,8 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import React from 'react';
-import { render } from '@testing-library/react';
+import {render} from '@testing-library/react';
 import { InputGroup } from '../../../components/new_launch/InputGroup';
+
 describe('InputGroup', () => {
   const mockOnChange = jest.fn();
 
@@ -21,21 +22,20 @@ describe('InputGroup', () => {
     expect(inputElement).toHaveAttribute('type', 'text');
   });
 
-  // it('applies "required" attribute when specified', () => {
-  //   const { getByLabelText } = render(<InputGroup {...defaultProps} required />);
-  //   const inputElement = getByLabelText('Test Label');
+  it('applies errorMessage when specified', () => {
+    const { getByText } = render(<InputGroup errorMessage="error" {...defaultProps} />);
+    const errorMessageTag = getByText('error');
+    expect(errorMessageTag).toBeInTheDocument();
+  });
 
-  //   expect(inputElement).toHaveAttribute('required');
-  // });
+  it('applies red border when errorMessage prop is passed', () => {
+    const { getByLabelText } = render(<InputGroup errorMessage='error' {...defaultProps} />);
+    const inputElement = getByLabelText('Test Label');
 
-  // it('applies red border when "required" attribute is specified', () => {
-  //   const { getByLabelText } = render(<InputGroup {...defaultProps} required />);
-  //   const inputElement = getByLabelText('Test Label');
+    expect(inputElement).toHaveClass('border-red-500');
+  });
 
-  //   expect(inputElement).toHaveClass('border-red-500');
-  // });
-
-  it('applies default gray border when "required" attribute is not specified', () => {
+  it('applies default gray border when errorMessage attribute is not passed', () => {
     const { getByLabelText } = render(<InputGroup {...defaultProps} />);
     const inputElement = getByLabelText('Test Label');
 

@@ -6,7 +6,7 @@ library.add(faCircleNotch);
 
 export const Loader = () => {
   return (
-    <div className="w-full h-full fixed top-0 left-0 bg-white opacity-75 z-50">
+    <div className="w-full h-full fixed top-0 left-0 bg-white opacity-75 z-50" aria-label="loading">
       <div className="flex justify-center items-center mt-[50vh]">
         <FontAwesomeIcon icon={["fas", "circle-notch"]} spin size="5x" className="text-gray-900/30" />
       </div>

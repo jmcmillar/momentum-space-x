@@ -1,5 +1,5 @@
 
-import { LaunchDataStore } from '../../store/data_store';
+import { LaunchDataStore } from '../../store/launchDataStore';
 import { Errors, formValidator } from '../../utils/formValidator';
 import { InputGroup } from './InputGroup';
 import { useState } from 'react';
@@ -13,7 +13,13 @@ export interface FormProps {
 
 export function LaunchForm() {
   const store = new LaunchDataStore();
-  const [formData, setFormData] = useState<FormProps>({} as FormProps);
+  const [formData, setFormData] = useState<FormProps>({
+    missionName: '',
+    launchDate: '',
+    rocketName: '',
+    links: '',
+    details: ''
+  });
   const [errors, setErrors] = useState<Errors<FormProps>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -26,14 +32,18 @@ export function LaunchForm() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrors(formValidator(formData, {missionName: "required", launchDate: "required", links: "isValidUrl"}))
+    
+    const validationErrors = formValidator(formData, {missionName: "required", launchDate: "required", links: "isValidUrl"});
+    setErrors(validationErrors);
+    
+    const isValid = Object.keys(validationErrors).length === 0;
+  
     if (isValid) {
       store.addLaunch(formData);
-      return alert('success')
+    } else {
+      console.log(validationErrors);
     }
-  }
-
-  const isValid: boolean = !!errors.launchDate || !!errors.missionName || !!errors.links
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -45,13 +55,12 @@ export function LaunchForm() {
         onChange={handleChange}
         errorMessage={errors.missionName}
       />
-      <InputGroup
-        id="rocketName"
-        label="Rocket Name"
-        type="text"
-        value={formData.rocketName}
-        onChange={handleChange}
-      />
+      <label htmlFor="rocketName" className="block mb-2 text-sm font-medium text-gray-900">Rocket Name</label>
+      <select id="rocketName" name="rocketName" className="w-full p-2.5 mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block">
+        {store.getUniqueRocketNames().map((rocketName) => (
+          <option key={rocketName} value={rocketName}>{rocketName}</option>
+        ))}
+      </select>
       <InputGroup
         id="links"
         label="Article link"
