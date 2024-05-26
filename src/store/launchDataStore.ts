@@ -40,10 +40,6 @@ export class LaunchDataStore {
     return this.launches.slice(startIndex, endIndex)
   }
 
-  public getLaunch(id: string): Launch | undefined {
-    return this.launches.find((launch) => launch.id === id);
-  }
-
   public addLaunch(formData: FormProps): void {
     localStorage.setItem(
       'data',
@@ -53,9 +49,5 @@ export class LaunchDataStore {
 
   public getUniqueRocketNames(): (string | undefined)[] {
     return Array.from(new Set(this.launches.map(launch => launch?.rocket?.rocket_name)));
-  }
-
-  public filterByRocketName(rocketName: string): Launch[] {
-    return this.launches.filter(launch => launch?.rocket?.rocket_name === rocketName);
   }
 }
