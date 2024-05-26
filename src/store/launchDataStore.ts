@@ -8,10 +8,8 @@ export class LaunchDataStore {
   public launches: Launch[] = [];
   public launchCount: number = 0;
 
-
   constructor() {
     this.getLaunches();
-    this.launchCount = this.launches.length;
   }
 
   private setLaunches(launches: Launch[]): void {
@@ -20,17 +18,18 @@ export class LaunchDataStore {
   }
 
   public async getLaunches(): Promise<void> {
-    if (!!localStorage.getItem('data')) {
-      return this.setLaunches(JSON.parse(localStorage.getItem('data') || ''));
+    if (localStorage.getItem('data')) {
+      const launches = JSON.parse(localStorage.getItem('data') || '');
+      this.setLaunches(launches);
+      return;
     }
 
     try {
       const response = await axios.get<LaunchIndexJson>(ROUTES.api);
       localStorage.setItem('data', JSON.stringify(response.data.data.launches));
       this.setLaunches(response.data.data.launches);
-
     } catch (error) {
-      // console.error(error);
+      console.error(error);
     }
   }
 

@@ -1,5 +1,5 @@
 /* eslint-disable testing-library/prefer-screen-queries */
-import React, { act } from 'react';
+import React from 'react';
 import {render} from '@testing-library/react';
 import { InputGroup } from '../../../components/new_launch/InputGroup';
 
