@@ -5,7 +5,7 @@ import { Loader } from "../../components/Loader";
 describe("Loader", () => {
   test('renders loading div tag', () => {
     render(<Loader />)
-    const headerElement = screen.getByText(/loading/i);
+    const headerElement = screen.getByLabelText('loading');
     expect(headerElement).toBeInTheDocument();
   });
 })

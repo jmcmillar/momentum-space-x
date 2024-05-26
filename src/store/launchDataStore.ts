@@ -30,7 +30,7 @@ export class LaunchDataStore {
       this.setLaunches(response.data.data.launches);
 
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   }
 
